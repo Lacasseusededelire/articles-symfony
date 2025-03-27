@@ -9,6 +9,10 @@ RUN apt-get update && apt-get install -y \
 # Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Installation de Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+
 # Définition du répertoire de travail
 WORKDIR /var/www
 COPY . .
@@ -16,7 +20,7 @@ COPY . .
 # Exécution de Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Exposition du port (Render utilise $PORT, mais ici un exemple)
+# Exposition du port
 EXPOSE 8000
 
 # Commande de démarrage
