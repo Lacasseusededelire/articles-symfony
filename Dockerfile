@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 # Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Installation de Symfony CLI (optionnel, selon ton besoin)
+# Installation de Symfony CLI (optionnel, pour éviter les erreurs de scripts)
 RUN curl -sS https://get.symfony.com/cli/installer | bash -s -- --install-dir=/usr/local/bin \
     && ln -sf /usr/local/bin/symfony /usr/local/bin/symfony-cmd
 
@@ -17,11 +17,11 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash -s -- --install-dir=/u
 WORKDIR /var/www
 COPY . .
 
-# Exécution de Composer
-RUN composer install --no-dev --optimize-autoloader
+# Exécution de Composer avec plus de détails
+RUN composer install --no-dev --optimize-autoloader --verbose
 
-# Exposition du port (dynamique via $PORT)
+# Exposition du port
 EXPOSE $PORT
 
-# Commande de démarrage avec $PORT
-CMD ["sh", "-c", "php -S 0.0.0.0:$PORT public/index.php"]
+# Commande de démarrage avec debug
+CMD ["sh", "-c", "echo 'Starting server on port $PORT' && php -S 0.0.0.0:$PORT public/index.php"]
