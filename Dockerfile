@@ -9,9 +9,9 @@ RUN apt-get update && apt-get install -y \
 # Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Installation de Symfony CLI
-RUN curl -sS https://get.symfony.com/cli/installer | bash \
-    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+# Installation de Symfony CLI (version corrigée)
+RUN curl -sS https://get.symfony.com/cli/installer | bash -s -- --install-dir=/usr/local/bin \
+    && ln -sf /usr/local/bin/symfony /usr/local/bin/symfony-cmd
 
 # Définition du répertoire de travail
 WORKDIR /var/www

@@ -77,9 +77,9 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
+            "cache:clear": "symfony",
+            "assets:install %PUBLIC_DIR%": "symfony",
+            "importmap:install": "symfony"
         },
         "post-install-cmd": [
             "@auto-scripts"
